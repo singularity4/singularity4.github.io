@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dijana Tolic</title>
+<style>
+  :root{
+    --ink:#1b1b1a;
+    --paper:#fbfaf7;
+    --muted:#8a8780;
+    --rule:#e4e1da;
+    --accent:#2e2118;
+    --col:38rem;       /* writing measure */
+    --rail:15rem;      /* portrait rail */
+    --gap:4.5rem;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* Two-column shell: stream + rail, centered as a pair */
+  .shell{
+    max-width:calc(var(--col) + var(--rail) + var(--gap));
+    margin:0 auto;
+    padding:8.5rem 1.5rem 7rem;
+    display:grid;
+    grid-template-columns:var(--col) var(--rail);
+    column-gap:var(--gap);
+    align-items:start;
+  }
+
+  /* ---- TOP BANNER ---- */
+  .banner{
+    width:100%;
+    max-width:1000px;
+    margin:0 auto -0.5rem;
+    padding:1rem 1.5rem 0;
+  }
+  .banner .frame{
+    position:relative;
+    height:150px;
+    overflow:hidden;
+    border-radius:2px;
+  }
+  .banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  /* ---- LEFT: writing (unchanged) ---- */
+  .main{min-width:0;}
+  header.masthead{margin-bottom:5.5rem;}
+  .name{
+    font-size:1.5rem;font-weight:600;letter-spacing:0.04em;margin:0;color:var(--accent);
+  }
+  .intro{
+    margin:1.1rem 0 0;
+    font-size:0.95rem;
+    line-height:1.5;
+    color:var(--muted);
+  }
+  .intro .dash{color:var(--accent);margin-right:0.4rem;}
+  .stream{list-style:none;margin:0;padding:0;}
+  .entry{position:relative;padding:2.1rem 0;border-top:1px solid var(--rule);}
+  .entry:first-child{border-top:none;padding-top:0;}
+  .entry .idx{
+    position:absolute;left:-3.4rem;top:2.35rem;
+    font-size:0.78rem;color:var(--muted);
+    font-variant-numeric:tabular-nums;letter-spacing:0.02em;
+  }
+  .entry:first-child .idx{top:0.25rem;}
+  .entry a.title{
+    display:inline;color:var(--accent);text-decoration:none;
+    font-size:1.32rem;line-height:1.3;font-weight:600;
+    background-image:linear-gradient(var(--accent),var(--accent));
+    background-size:0% 1.5px;background-repeat:no-repeat;background-position:0 100%;
+    transition:background-size .35s ease;
+  }
+  .entry a.title:hover,.entry a.title:focus-visible{background-size:100% 1.5px;outline:none;}
+  .entry .dek{margin:.55rem 0 0;color:#4a4842;font-size:1.02rem;line-height:1.55;}
+  .entry .meta{
+    margin-top:.7rem;font-size:0.8rem;color:var(--muted);
+    letter-spacing:0.03em;font-variant-numeric:tabular-nums;
+  }
+  .entry .where{font-style:italic;}
+  .entry .where::before{content:"· ";font-style:normal;}
+
+  footer{
+    margin-top:5.5rem;padding-top:1.4rem;border-top:1px solid var(--rule);
+    font-size:0.8rem;color:var(--muted);letter-spacing:0.02em;
+  }
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule);}
+  footer a:hover{color:var(--ink);}
+
+  /* ---- RIGHT: portrait rail (sticky, quiet) ---- */
+  .rail{
+    position:sticky;top:8.5rem;
+  }
+  .portrait{
+    width:100%;
+    display:block;
+  }
+  .rail .caption{
+    margin-top:.7rem;
+    font-size:0.78rem;
+    color:var(--muted);
+    letter-spacing:0.03em;
+  }
+  .rail .advisory{
+    font-size:0.86rem;
+    line-height:1.5;
+    color:#4a4842;
+  }
+  .rail .portrait{
+    margin-top:1.6rem;
+    padding-top:1.3rem;
+    border-top:1px solid var(--rule);
+  }
+  .rail .advisory a{
+    color:#4a4842;
+    text-decoration:none;
+    border-bottom:1px solid var(--rule);
+    word-break:break-word;
+  }
+  .rail .advisory a:hover{color:var(--ink);border-color:var(--accent);}
+
+  /* Stack on narrow screens: photo after the name, before the stream feels
+     wrong; instead it drops to the bottom so writing still leads. */
+  @media (max-width:780px){
+    .shell{
+      display:block;
+      max-width:var(--col);
+      padding:5rem 1.4rem 4.5rem;
+    }
+    body{font-size:17px;}
+    header.masthead{margin-bottom:3.5rem;}
+    .entry .idx{position:static;display:block;margin-bottom:.35rem;top:auto;left:auto;}
+    .rail{
+      position:static;
+      margin-top:4.5rem;
+      max-width:none;
+      display:grid;
+      grid-template-columns:9.5rem 1fr;
+      column-gap:1.3rem;
+      align-items:start;
+    }
+    .rail .portrait{grid-column:1;grid-row:1 / span 2;align-self:start;margin-top:0;padding-top:0;border-top:none;}
+    .rail .caption{margin-top:.4rem;}
+    .rail .advisory{
+      grid-column:2;grid-row:1;
+      margin-top:.9rem;
+      padding-top:.9rem;
+    }
+  }
+  @media (prefers-reduced-motion:reduce){.entry a.title{transition:none;}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="main">
+      <header class="masthead">
+        <h1 class="name">Dijana Tolic</h1>
+        <p class="intro"><span class="dash">—</span>Personal writing archive, including articles from Substack and Medium.</p>
+      </header>
+
+      <ol class="stream">
+        <li class="entry">
+          <span class="idx">01</span>
+          <a class="title" href="https://medium.com/@singularity4/behavioral-audits-for-ai-agents-what-finance-already-had-to-solve-ee321ae8b263" target="_blank" rel="noopener">Behavioral Audits for AI Agents: What Finance Already Had to Solve</a>
+          <p class="dek">Algorithmic trading regulation had a behavioral audit framework for autonomous algorithms by 2018. Modern AI oversight could borrow most of it — then extend it to agentic behavior.</p>
+          <div class="meta">Jun 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">02</span>
+          <a class="title" href="https://open.substack.com/pub/singularity4/p/an-early-warning-ai-index-for-agi" target="_blank" rel="noopener">An Early-Warning AI Index for AGI Discovery</a>
+          <p class="dek">Future AI risks may not appear only inside AI models, but also in the complex ecosystems where humans, agents, code, tools and AI models recursively interact.</p>
+          <div class="meta">Jun 8, 2026 <span class="where">Substack</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">03</span>
+          <a class="title" href="https://open.substack.com/pub/singularity4/p/evaluation-science-of-agi-the-einstein" target="_blank" rel="noopener">Evaluation Science of AGI: The Einstein Test</a>
+          <p class="dek">Demis Hassabis, CEO of Google DeepMind and 2024 Nobel laureate, proposed a new benchmark — train an LLM on data up to 1911 and see if it can independently rediscover relativity.</p>
+          <div class="meta">Jun 5, 2026 <span class="where">Substack</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">04</span>
+          <a class="title" href="https://open.substack.com/pub/singularity4/p/introspective-awareness-and-the-ai" target="_blank" rel="noopener">Introspective Awareness and the AI Sentience Trap</a>
+          <p class="dek">Max Tegmark, Geoffrey Hinton, and Anthropic's research on introspective awareness all point toward the same conclusion: the relevant safety threshold is functional.</p>
+          <div class="meta">Jun 4, 2026 <span class="where">Substack</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">05</span>
+          <a class="title" href="https://medium.com/@singularity4/hinton-on-5-ai-capability-myths-you-probably-believe-9f9123cd63df" target="_blank" rel="noopener">Hinton on 5 AI Capability Myths You Probably Believe</a>
+          <p class="dek">Geoffrey Hinton has publicly pushed back on five common beliefs about current AI systems — about understanding, representation, experience, emotion, and consciousness.</p>
+          <div class="meta">Jun 1, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">06</span>
+          <a class="title" href="https://medium.com/minds-and-machines/rethinking-the-moral-machine-experiment-for-ai-safety-3f3482c3d415" target="_blank" rel="noopener">Rethinking the Moral Machine Experiment for AI Safety</a>
+          <p class="dek">Moral preference benchmarks that ignore probabilistic outcomes ignore decision-making under uncertainty. For safe AI, we also need to quantify decision quality under uncertainty: counterfactuals, risk attitude, regret, and trade-offs.</p>
+          <div class="meta">May 10, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">07</span>
+          <a class="title" href="https://medium.com/minds-and-machines/why-theory-of-mind-matters-for-ai-agents-bceb6ee6f06a" target="_blank" rel="noopener">Why Theory of Mind Matters for AI Agents</a>
+          <p class="dek">Theory of Mind, the cognitive ability to reason about others' beliefs, knowledge, intentions, and mental states, is an open challenge for LLMs, agents, and multi-agent systems because models struggle with temporal belief state tracking.</p>
+          <div class="meta">May 7, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">08</span>
+          <a class="title" href="https://www.quora.com/What-risks-do-banks-face-when-using-Anthropics-Mythos-model-to-detect-vulnerabilities/answer/Dijana-Toli%C4%87" target="_blank" rel="noopener">What Risks Do Banks Face When Using Anthropic's Mythos Model?</a>
+          <p class="dek">Anthropic describes Mythos as a step-change in vulnerability discovery and exploitation, able to autonomously find zero-days and build proof-of-concept exploits.</p>
+          <div class="meta">Apr 13, 2026 <span class="where">Quora</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">09</span>
+          <a class="title" href="https://medium.com/@singularity4/5-new-papers-in-ai-alignment-worth-reading-in-2026-c88b422184aa" target="_blank" rel="noopener">5 New Papers in AI Alignment Worth Reading in 2026</a>
+          <p class="dek">Why "just align the AI" might not actually be possible. New alignment research papers go beyond ethics debates and argue that alignment faces <em>formal limits</em> — from complexity theory, information theory, and computability.</p>
+          <div class="meta">Feb 21, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">10</span>
+          <a class="title" href="https://medium.com/@singularity4/the-agi-clause-what-happens-if-no-one-agrees-on-what-agi-is-60998f7762f2" target="_blank" rel="noopener">The AGI Clause: What Happens If No One Agrees on What AGI Is?</a>
+          <p class="dek">By 2026, this clause has become fuzzy and is now the source of new tension—no one agrees on what AGI is, who defines it, or what should happen next.</p>
+          <div class="meta">Feb 20, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">11</span>
+          <a class="title" href="https://medium.com/@singularity4/how-worldcoin-could-shape-ais-digital-economy-9b1f7be13bd0" target="_blank" rel="noopener">How Worldcoin Could Shape AI's Digital Economy</a>
+          <p class="dek">This blockchain identity protocol is increasingly being framed not just as a payment network, but as <em>proof-of-personhood</em> infrastructure for an internet saturated with AI agents.</p>
+          <div class="meta">Feb 20, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">12</span>
+          <a class="title" href="https://medium.com/the-noosoph%C3%ADa/social-impact-art-meets-neuroscience-research-8aaba3036596" target="_blank" rel="noopener">Programmable Philanthropy II: Social Impact Art Meets Neuroscience Research</a>
+          <p class="dek">Digital art and decentralized technology are opening new pathways for scientific philanthropy. Traditional philanthropy relies on trust — programmable philanthropy encodes that trust directly into the artwork itself.</p>
+          <div class="meta">Jun 3, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">13</span>
+          <a class="title" href="https://medium.com/the-noosoph%C3%ADa/programmable-philanthropy-digital-art-for-social-impact-ef1517e58ad6" target="_blank" rel="noopener">Programmable Philanthropy I: Digital Art for Social Impact</a>
+          <p class="dek">Social impact NFTs are designed to raise awareness, fund charitable causes, or document environmental and social issues on an immutable ledger. They reimagine the relationship between art and technology.</p>
+          <div class="meta">Feb 18, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">14</span>
+          <a class="title" href="https://medium.com/@singularity4/the-ai-bubble-in-2026-who-will-put-a-price-on-agi-63c5f3d76da4" target="_blank" rel="noopener">The AI Bubble in 2026: Who Will Put a Price on AGI?</a>
+          <p class="dek">Most of the generative AI innovation happened in research labs and small tech communities, with excitement under the radar. Could anyone outside these labs see that this early build-up was actually the start of something much bigger?</p>
+          <div class="meta">Feb 19, 2026 <span class="where">Medium</span></div>
+        </li>
+
+        <li class="entry">
+          <span class="idx">15</span>
+          <a class="title" href="https://medium.com/@singularity4/the-game-theory-of-ai-regulations-in-competitive-markets-a504b9af5f75" target="_blank" rel="noopener">The Game Theory of AI Regulation (in Competitive Markets)</a>
+          <p class="dek">Imagine each actor—OpenAI, xAI, Anthropic, DeepMind, Meta, China, the EU, etc.—as a player in a global strategic game.</p>
+          <div class="meta">Sep 5, 2025 <span class="where">Medium</span></div>
+        </li>
+      </ol>
+
+      <footer>
+        Written by Dijana Tolic. Full archive on
+        <a href="https://medium.com/@singularity4" target="_blank" rel="noopener">Medium</a>.
+      </footer>
+    </div>
+
+    <aside class="rail">
+      <p class="advisory">Research and advisory on AI evaluation and systemic risk. Open to selected projects in AI agents and blockchain systems — <a href="mailto:multiplex.ai@proton.me">multiplex.ai@proton.me</a>.</p>
+      <img class="portrait" src="portrait.JPG" alt="image" />
+    </aside>
+  </div>
+</body>
+</html>
